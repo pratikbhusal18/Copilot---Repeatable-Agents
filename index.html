@@ -3,206 +3,439 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Pratik's Agent Gallery</title>
-<meta name="description" content="Pre-built, deploy-ready AI agents for Microsoft 365 — curated by Pratik Bhusal." />
+<title>Copilot — Repeatable Agents</title>
+<meta name="description" content="Pre-built, deploy-ready AI agents for Microsoft 365 Copilot & Copilot Studio — curated by Pratik Bhusal." />
 <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
   :root {
-    --bg: #f5f7fb;
-    --card: #ffffff;
-    --ink: #1f2328;
-    --muted: #57606a;
-    --accent: #0078d4;
-    --accent-dark: #005a9e;
-    --border: #d0d7de;
-    --shadow: 0 1px 2px rgba(31,35,40,.06), 0 8px 24px rgba(140,149,159,.12);
+    --bg-deep:        #07061a;
+    --bg-mid:         #160c3a;
+    --bg-glow:        #2d1670;
+    --accent:         #7c5cff;
+    --accent-bright:  #a78bfa;
+    --cyan:           #38e1ff;
+    --cyan-glow:      #67e8f9;
+    --gold:           #ffd84d;
+    --white:          #ffffff;
+    --white-soft:     rgba(255,255,255,0.85);
+    --white-muted:    rgba(255,255,255,0.55);
+    --white-dim:      rgba(255,255,255,0.35);
+    --card-bg:        rgba(255,255,255,0.04);
+    --card-border:    rgba(255,255,255,0.10);
+    --card-hover-bg:  rgba(255,255,255,0.07);
+    --pill-bg:        rgba(255,255,255,0.06);
+    --pill-border:    rgba(255,255,255,0.18);
   }
-  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
   body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
-    background: var(--bg);
-    color: var(--ink);
-    line-height: 1.55;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-deep);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
   }
-  .hero {
-    text-align: center;
-    padding: 72px 24px 40px;
-    background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
-    border-bottom: 1px solid var(--border);
+
+  /* Animated gradient backdrop */
+  .bg {
+    position: fixed; inset: 0; z-index: -2;
+    background:
+      radial-gradient(ellipse 70% 60% at 15% 10%, rgba(124,92,255,0.30), transparent 60%),
+      radial-gradient(ellipse 60% 50% at 85% 90%, rgba(56,225,255,0.14), transparent 55%),
+      radial-gradient(ellipse 70% 70% at 50% 40%, rgba(45,22,112,0.55), transparent 70%),
+      linear-gradient(160deg, #07061a 0%, #160c3a 40%, #2d1670 70%, #07061a 100%);
   }
+  .bg::after {
+    content:''; position:absolute; inset:0;
+    background:
+      radial-gradient(circle 380px at 25% 25%, rgba(167,139,250,0.10), transparent),
+      radial-gradient(circle 260px at 75% 65%, rgba(56,225,255,0.08), transparent);
+    animation: pulse 9s ease-in-out infinite alternate;
+  }
+  @keyframes pulse {
+    0%   { opacity: .55; transform: scale(1); }
+    100% { opacity: 1;   transform: scale(1.07); }
+  }
+
+  /* Subtle grid overlay for tech feel */
+  .grid-overlay {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  }
+
+  .container { max-width: 1180px; margin: 0 auto; padding: 0 24px; }
+
+  /* Nav */
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    background: rgba(7,6,26,0.7);
+    border-bottom: 1px solid var(--card-border);
+  }
+  .nav-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 64px;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 12px;
+    text-decoration: none; color: var(--white);
+    font-weight: 700; font-size: 1.05rem;
+  }
+  .nav-brand .logo {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--cyan) 100%);
+    display:flex; align-items:center; justify-content:center;
+    font-weight: 800; font-size: 16px;
+    box-shadow: 0 4px 14px rgba(124,92,255,0.4);
+  }
+  .nav-links { display: flex; gap: 8px; align-items: center; }
+  .nav-link {
+    color: var(--white-soft);
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem; font-weight: 500;
+    transition: all .2s;
+  }
+  .nav-link:hover { background: var(--pill-bg); color: var(--white); }
+  .nav-link.gh {
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .nav-link.gh:hover { background: rgba(255,255,255,0.13); border-color: rgba(255,255,255,0.3); }
+
+  /* Hero */
+  .hero { text-align: center; padding: 64px 24px 36px; }
+  .hero-icons {
+    display: flex; justify-content: center; gap: 18px; margin-bottom: 28px;
+  }
+  .hero-icon {
+    width: 60px; height: 60px; border-radius: 14px;
+    filter: drop-shadow(0 6px 16px rgba(0,0,0,0.4));
+    transition: transform .3s, filter .3s;
+  }
+  .hero-icon:hover { transform: translateY(-5px) scale(1.1); filter: drop-shadow(0 10px 22px rgba(124,92,255,0.5)); }
   .hero h1 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    margin: 0 0 12px;
-    font-weight: 700;
-    letter-spacing: -.02em;
+    font-size: clamp(2.4rem, 5.5vw, 4rem);
+    font-weight: 800; line-height: 1.1; letter-spacing: -0.02em;
+    margin-bottom: 18px;
   }
-  .hero p.lede {
-    font-size: 1.15rem;
-    color: var(--muted);
-    max-width: 680px;
-    margin: 0 auto 18px;
+  .hero h1 .accent {
+    background: linear-gradient(135deg, var(--cyan) 0%, var(--accent-bright) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
-  .hero .meta {
-    color: var(--muted);
-    font-size: .95rem;
+  .hero-sub {
+    font-size: clamp(1rem, 1.7vw, 1.2rem);
+    color: var(--white-muted);
+    max-width: 640px; margin: 0 auto 26px;
+    line-height: 1.6;
   }
-  .hero .pills {
-    margin-top: 22px;
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    flex-wrap: wrap;
-    font-size: .9rem;
-  }
-  .pill {
-    background: #fff;
-    border: 1px solid var(--border);
+  .hero-meta {
+    display: inline-flex; align-items: center; gap: 0;
+    padding: 10px 26px;
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
     border-radius: 999px;
-    padding: 6px 14px;
-    color: var(--muted);
+    font-size: 0.92rem; color: var(--white-soft);
   }
-  main {
-    max-width: 1080px;
-    margin: 0 auto;
-    padding: 48px 24px 80px;
+  .hero-meta .divider { margin: 0 14px; color: var(--white-dim); font-size: .55rem; }
+
+  /* Section */
+  section.agents { padding: 56px 24px 64px; }
+  .section-head { text-align: center; margin-bottom: 40px; }
+  .section-head h2 {
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem); font-weight: 700;
+    margin-bottom: 10px; letter-spacing: -0.01em;
   }
-  h2.section {
-    font-size: 1.5rem;
-    margin: 0 0 6px;
+  .section-head p {
+    color: var(--white-muted); font-size: 1.02rem;
+    max-width: 580px; margin: 0 auto;
   }
-  .section-sub {
-    color: var(--muted);
-    margin: 0 0 28px;
-  }
+
+  /* Cards grid */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+    gap: 24px;
   }
   .card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 24px;
-    box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
-    transition: transform .15s ease, box-shadow .15s ease;
+    position: relative;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 18px;
+    padding: 28px;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    transition: transform .25s ease, background .25s ease, border-color .25s ease, box-shadow .25s ease;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+  }
+  .card::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, transparent 60%, var(--card-accent, rgba(124,92,255,0.08)) 100%);
+    pointer-events: none;
+    transition: opacity .25s;
+    opacity: 0.6;
   }
   .card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 1px 2px rgba(31,35,40,.06), 0 16px 32px rgba(140,149,159,.18);
+    transform: translateY(-4px);
+    background: var(--card-hover-bg);
+    border-color: rgba(255,255,255,0.22);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
   }
-  .card .icon {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 16px;
-    border-radius: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #e8f2ff 0%, #f3e8ff 100%);
+  .card:hover::before { opacity: 1; }
+  .card > * { position: relative; z-index: 1; }
+
+  .card-badge {
+    position: absolute;
+    top: 22px; right: 22px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: var(--badge-bg, rgba(167,139,250,0.18));
+    color: var(--badge-fg, #c4b5fd);
+    border: 1px solid var(--badge-border, rgba(167,139,250,0.35));
   }
-  .card .icon img { width: 48px; height: 48px; }
+
+  .card-icon {
+    width: 72px; height: 72px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--icon-from, #4c1d95) 0%, var(--icon-to, #1e40af) 100%);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 22px;
+    box-shadow: 0 8px 24px var(--icon-shadow, rgba(124,92,255,0.35));
+  }
+  .card-icon img { width: 48px; height: 48px; }
+
   .card h3 {
-    margin: 0 0 8px;
-    font-size: 1.2rem;
+    font-size: 1.4rem; font-weight: 700;
+    margin-bottom: 12px; letter-spacing: -0.01em;
   }
   .card .tagline {
-    color: var(--muted);
-    margin: 0 0 16px;
+    color: var(--white-soft);
+    line-height: 1.6;
+    margin-bottom: 18px;
+    font-size: 0.97rem;
     flex-grow: 1;
   }
-  .card .owner {
-    font-size: .85rem;
-    color: var(--muted);
-    margin-bottom: 16px;
+  .card .meta-row {
+    display: flex; flex-wrap: wrap; gap: 8px;
+    margin-bottom: 20px;
   }
-  .card .owner strong { color: var(--ink); font-weight: 600; }
-  .card .actions {
-    display: flex;
+  .meta-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 5px 11px;
+    background: var(--pill-bg);
+    border: 1px solid var(--pill-border);
+    border-radius: 999px;
+    font-size: 0.78rem;
+    color: var(--white-soft);
+    font-weight: 500;
+  }
+  .meta-chip.owner { background: rgba(56,225,255,0.10); border-color: rgba(56,225,255,0.25); color: var(--cyan-glow); }
+
+  .actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     gap: 10px;
-    flex-wrap: wrap;
   }
   .btn {
-    display: inline-flex;
-    align-items: center;
+    display: inline-flex; align-items: center; justify-content: center;
     gap: 6px;
-    padding: 8px 14px;
-    border-radius: 6px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    font-size: 0.85rem; font-weight: 600;
     text-decoration: none;
-    font-size: .9rem;
-    font-weight: 500;
-    border: 1px solid var(--border);
-    background: #fff;
-    color: var(--ink);
-    transition: background .15s ease, border-color .15s ease;
+    border: 1px solid var(--card-border);
+    background: var(--pill-bg);
+    color: var(--white);
+    transition: all .2s;
+    cursor: pointer;
   }
-  .btn:hover { background: #f6f8fa; border-color: #afb8c1; }
+  .btn:hover {
+    background: rgba(255,255,255,0.12);
+    border-color: rgba(255,255,255,0.28);
+    transform: translateY(-1px);
+  }
   .btn.primary {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
+    border-color: transparent;
+    box-shadow: 0 6px 18px rgba(124,92,255,0.35);
   }
-  .btn.primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+  .btn.primary:hover {
+    background: linear-gradient(135deg, var(--accent-bright) 0%, var(--cyan) 100%);
+    box-shadow: 0 10px 26px rgba(124,92,255,0.5);
+  }
+  .btn.gh {
+    grid-column: span 2;
+    background: rgba(0,0,0,0.4);
+    border-color: rgba(255,255,255,0.15);
+  }
+  .btn.gh:hover { background: rgba(0,0,0,0.55); border-color: rgba(255,255,255,0.3); }
+  .btn[aria-disabled="true"] {
+    opacity: 0.55;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .btn .icon-svg { width: 14px; height: 14px; }
+
+  /* Per-card theming */
+  .card.doc-validation {
+    --icon-from: #0078d4; --icon-to: #00bcf2;
+    --icon-shadow: rgba(0,120,212,0.4);
+    --card-accent: rgba(0,188,242,0.10);
+    --badge-bg: rgba(56,225,255,0.16);
+    --badge-fg: #67e8f9;
+    --badge-border: rgba(56,225,255,0.35);
+  }
+  .card.powerclaw {
+    --icon-from: #742774; --icon-to: #b4009e;
+    --icon-shadow: rgba(180,0,158,0.4);
+    --card-accent: rgba(255,216,77,0.10);
+    --badge-bg: rgba(255,216,77,0.16);
+    --badge-fg: #ffd84d;
+    --badge-border: rgba(255,216,77,0.35);
+  }
+
+  /* Footer */
   footer {
     text-align: center;
-    padding: 32px 24px 48px;
-    color: var(--muted);
-    font-size: .9rem;
-    border-top: 1px solid var(--border);
-    background: #fff;
+    padding: 36px 24px 56px;
+    border-top: 1px solid var(--card-border);
+    color: var(--white-muted);
+    font-size: 0.9rem;
+    background: rgba(7,6,26,0.4);
   }
-  footer a { color: var(--accent); text-decoration: none; }
+  footer a { color: var(--cyan-glow); text-decoration: none; }
   footer a:hover { text-decoration: underline; }
+
+  @media (max-width: 520px) {
+    .actions { grid-template-columns: 1fr; }
+    .btn.gh { grid-column: span 1; }
+    .nav-link:not(.gh) { display: none; }
+  }
 </style>
 </head>
 <body>
+  <div class="bg"></div>
+  <div class="grid-overlay"></div>
+
+  <nav>
+    <div class="container nav-inner">
+      <a href="#" class="nav-brand">
+        <span class="logo">P</span>
+        <span>Repeatable Agents</span>
+      </a>
+      <div class="nav-links">
+        <a href="#agents" class="nav-link">Agents</a>
+        <a href="https://github.com/pratikbhusal18/Copilot---Repeatable-Agents" class="nav-link gh" target="_blank" rel="noopener">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          GitHub
+        </a>
+      </div>
+    </div>
+  </nav>
+
   <section class="hero">
-    <h1>Pratik's Agent Gallery</h1>
-    <p class="lede">Pre-built, deploy-ready AI agents for Microsoft 365 Copilot &amp; Copilot Studio.</p>
-    <p class="meta">Curated by <strong>Pratik Bhusal</strong> · M365 Copilot Technical Center of Excellence</p>
-    <div class="pills">
-      <span class="pill">📦 Ready to deploy</span>
-      <span class="pill">🚀 Copilot Studio</span>
-      <span class="pill">📖 Setup guides included</span>
+    <div class="container">
+      <div class="hero-icons">
+        <img src="assets/document-validation.svg" alt="Document Validation Agent" class="hero-icon" />
+        <img src="assets/powerclaw.svg" alt="PowerClaw" class="hero-icon" />
+      </div>
+      <h1>Copilot — <span class="accent">Repeatable Agents</span></h1>
+      <p class="hero-sub">A curated collection of pre-built, deploy-ready AI agents for Microsoft 365 Copilot &amp; Copilot Studio. Import the package, follow the setup guide, and ship in minutes.</p>
+      <div class="hero-meta">
+        <span>📦 Ready to deploy</span>
+        <span class="divider">●</span>
+        <span>🚀 Copilot Studio</span>
+        <span class="divider">●</span>
+        <span>📖 Setup guides</span>
+      </div>
     </div>
   </section>
 
-  <main>
-    <h2 class="section">🤖 Available Agents</h2>
-    <p class="section-sub">Two showcase agents from the M365 Copilot CoE Agent Repository.</p>
+  <section class="agents" id="agents">
+    <div class="container">
+      <div class="section-head">
+        <h2>🤖 Available Agents</h2>
+        <p>Each agent ships with a complete Bill of Materials — package, setup guide, and source on GitHub.</p>
+      </div>
 
-    <div class="grid">
-      <!-- Document Validation Agent -->
-      <article class="card">
-        <div class="icon"><img src="assets/document-validation.svg" alt="Document Validation Agent icon" /></div>
-        <h3>Document Validation Agent</h3>
-        <p class="tagline">Automated document review on Copilot Studio — checks submitted files against your validation rules and surfaces missing fields, formatting issues, and compliance gaps so reviewers can focus on the exceptions.</p>
-        <p class="owner">Owner: <strong>Pratik Bhusal</strong> · Copilot Studio</p>
-        <div class="actions">
-          <a class="btn primary" href="https://microsofteur.sharepoint.com/teams/M365Copilot-TechnicalCenterofExcellence/Agent%20Repository/Forms/AllItems.aspx?id=%2Fteams%2FM365Copilot%2DTechnicalCenterofExcellence%2FAgent%20Repository%2FPratik%5FDocument%20Validation%20Agent%5F02%5F19%5F2026" target="_blank" rel="noopener">📦 Open Repo Folder</a>
-          <a class="btn" href="https://microsofteur.sharepoint.com/:p:/r/teams/M365Copilot-TechnicalCenterofExcellence/Agent%20Repository/Pratik_Document%20Validation%20Agent_02_19_2026/Document_Validation_Agent.pptx" target="_blank" rel="noopener">📊 Overview Deck</a>
-        </div>
-      </article>
+      <div class="grid">
+        <!-- Document Validation Agent -->
+        <article class="card doc-validation">
+          <span class="card-badge">Custom Agent</span>
+          <div class="card-icon"><img src="assets/document-validation.svg" alt="" /></div>
+          <h3>Document Validation Agent</h3>
+          <p class="tagline">Automated document review on Copilot Studio — checks submitted files against your validation rules and surfaces missing fields, formatting issues, and compliance gaps so reviewers can focus on the exceptions.</p>
+          <div class="meta-row">
+            <span class="meta-chip owner">👤 Pratik Bhusal</span>
+            <span class="meta-chip">⚙️ Copilot Studio</span>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="#" aria-disabled="true" title="Coming soon">
+              <svg class="icon-svg" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+              Download Package
+            </a>
+            <a class="btn" href="#" aria-disabled="true" title="Coming soon">
+              <svg class="icon-svg" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+              Setup Guide
+            </a>
+            <a class="btn gh" href="#" aria-disabled="true" title="Coming soon">
+              <svg class="icon-svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </article>
 
-      <!-- PowerClaw -->
-      <article class="card">
-        <div class="icon"><img src="assets/powerclaw.svg" alt="PowerClaw agent icon" /></div>
-        <h3>PowerClaw</h3>
-        <p class="tagline">Your 24/7 AI Chief of Staff — built entirely on Microsoft 365. Runs a 30-minute heartbeat across calendar, email, and tasks to deliver morning briefings, meeting prep, and autonomous research while you sleep. Copilot Studio · Power Automate · SharePoint · Teams.</p>
-        <p class="owner">Owner: <strong>Alejandro Lopez</strong> · Microsoft FastTrack · MIT License</p>
-        <div class="actions">
-          <a class="btn primary" href="https://microsofteur.sharepoint.com/teams/M365Copilot-TechnicalCenterofExcellence/Agent%20Repository/Forms/AllItems.aspx?id=%2Fteams%2FM365Copilot%2DTechnicalCenterofExcellence%2FAgent%20Repository%2FAlejandro%5FPowerClaw%5F03%5F20%5F2026" target="_blank" rel="noopener">📦 Open Repo Folder</a>
-          <a class="btn" href="https://microsofteur.sharepoint.com/:p:/r/teams/M365Copilot-TechnicalCenterofExcellence/Agent%20Repository/Alejandro_PowerClaw_03_20_2026/PowerClaw-Overview.pptx" target="_blank" rel="noopener">📊 Overview Deck</a>
-        </div>
-      </article>
+        <!-- PowerClaw -->
+        <article class="card powerclaw">
+          <span class="card-badge">Custom Agent</span>
+          <div class="card-icon"><img src="assets/powerclaw.svg" alt="" /></div>
+          <h3>PowerClaw</h3>
+          <p class="tagline">Your 24/7 AI Chief of Staff — built entirely on Microsoft 365. Runs a 30-minute heartbeat across calendar, email, and tasks to deliver morning briefings, meeting prep, and autonomous research while you sleep.</p>
+          <div class="meta-row">
+            <span class="meta-chip owner">👤 Alejandro Lopez</span>
+            <span class="meta-chip">⚙️ Copilot Studio</span>
+            <span class="meta-chip">⚡ Power Automate</span>
+            <span class="meta-chip">📂 SharePoint</span>
+          </div>
+          <div class="actions">
+            <a class="btn primary" href="#" aria-disabled="true" title="Coming soon">
+              <svg class="icon-svg" viewBox="0 0 16 16" fill="currentColor"><path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/><path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/></svg>
+              Download Package
+            </a>
+            <a class="btn" href="#" aria-disabled="true" title="Coming soon">
+              <svg class="icon-svg" viewBox="0 0 16 16" fill="currentColor"><path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/></svg>
+              Setup Guide
+            </a>
+            <a class="btn gh" href="#" aria-disabled="true" title="Coming soon">
+              <svg class="icon-svg" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+              View on GitHub
+            </a>
+          </div>
+        </article>
+      </div>
     </div>
-  </main>
+  </section>
 
   <footer>
-    <p>Built with ❤️ by <a href="https://github.com/pratikbhusal18" target="_blank" rel="noopener">@pratikbhusal18</a> · Inspired by the <a href="https://microsoft.github.io/m365-agent-templates/" target="_blank" rel="noopener">M365 Agent Templates</a> gallery</p>
+    <p>Curated by <a href="https://github.com/pratikbhusal18" target="_blank" rel="noopener">@pratikbhusal18</a> · Inspired by the <a href="https://microsoft.github.io/m365-agent-templates/" target="_blank" rel="noopener">M365 Agent Templates</a> gallery</p>
   </footer>
 </body>
 </html>
