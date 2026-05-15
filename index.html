@@ -11,25 +11,27 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --bg:#ffffff;
-    --bg-soft:#f8f9fb;
-    --bg-muted:#f1f3f7;
-    --border:#e5e7eb;
-    --border-strong:#d1d5db;
-    --ink:#0f172a;
-    --ink-2:#334155;
-    --muted:#64748b;
-    --muted-2:#94a3b8;
-    --accent:#5b5bd6;
-    --accent-2:#7c3aed;
-    --accent-soft:#eef0ff;
-    --success:#10b981;
-    --warn:#f59e0b;
-    --info:#0ea5e9;
-    --rose:#e11d48;
-    --shadow-sm:0 1px 2px rgba(15,23,42,0.04);
-    --shadow-md:0 4px 12px rgba(15,23,42,0.06),0 2px 4px rgba(15,23,42,0.04);
-    --shadow-lg:0 12px 32px rgba(15,23,42,0.08),0 4px 8px rgba(15,23,42,0.04);
+    --bg:#faf6ef;
+    --bg-soft:#f3ecdf;
+    --bg-muted:#ebe2d0;
+    --border:#dcd2bd;
+    --border-strong:#c4b89e;
+    --ink:#16302b;
+    --ink-2:#385049;
+    --muted:#7a7264;
+    --muted-2:#a89e8a;
+    --accent:#c1502e;
+    --accent-2:#e07a3c;
+    --accent-soft:#fbe9dc;
+    --sage:#5f7a5c;
+    --sage-soft:#dde6d4;
+    --success:#3f7a4e;
+    --warn:#c98c2a;
+    --info:#3a7a8e;
+    --rose:#a83246;
+    --shadow-sm:0 1px 2px rgba(22,48,43,0.04);
+    --shadow-md:0 4px 14px rgba(22,48,43,0.07),0 2px 4px rgba(22,48,43,0.04);
+    --shadow-lg:0 14px 36px rgba(22,48,43,0.10),0 4px 10px rgba(22,48,43,0.05);
     --radius:10px;
     --radius-lg:14px;
   }
@@ -51,7 +53,7 @@
   /* ════════ HEADER ════════ */
   header{
     position:sticky;top:0;z-index:50;
-    background:rgba(255,255,255,0.92);
+    background:rgba(250,246,239,0.92);
     backdrop-filter:saturate(180%) blur(12px);
     border-bottom:1px solid var(--border);
   }
@@ -62,8 +64,8 @@
   .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:15px}
   .brand-mark{
     width:28px;height:28px;border-radius:7px;
-    background:linear-gradient(135deg,var(--accent),var(--accent-2));
-    display:grid;place-items:center;color:#fff;font-weight:800;font-size:14px;
+    background:linear-gradient(135deg,var(--ink),var(--accent));
+    display:grid;place-items:center;color:#faf6ef;font-weight:800;font-size:14px;
   }
   .brand-text{color:var(--ink)}
   .brand-sub{color:var(--muted);font-weight:500;margin-left:6px}
@@ -80,9 +82,9 @@
     cursor:pointer;transition:all .15s;white-space:nowrap;
     text-decoration:none;
   }
-  .btn-primary{background:var(--ink);color:#fff;border-color:var(--ink)}
-  .btn-primary:hover{background:#1e293b}
-  .btn-secondary{background:#fff;color:var(--ink);border-color:var(--border-strong)}
+  .btn-primary{background:var(--ink);color:#faf6ef;border-color:var(--ink)}
+  .btn-primary:hover{background:#0a1f1b}
+  .btn-secondary{background:var(--bg);color:var(--ink);border-color:var(--border-strong)}
   .btn-secondary:hover{background:var(--bg-soft);border-color:var(--ink-2)}
   .btn-ghost{background:transparent;color:var(--ink-2)}
   .btn-ghost:hover{background:var(--bg-muted);color:var(--ink)}
@@ -93,7 +95,8 @@
     padding:80px 0 56px;
     border-bottom:1px solid var(--border);
     background:
-      radial-gradient(ellipse 1000px 400px at 50% 0%,var(--accent-soft) 0%,transparent 70%),
+      radial-gradient(ellipse 1200px 500px at 50% 0%,var(--accent-soft) 0%,transparent 70%),
+      radial-gradient(ellipse 800px 400px at 90% 10%,var(--sage-soft) 0%,transparent 60%),
       var(--bg);
   }
   .hero-inner{max-width:760px;margin:0 auto;text-align:center}
@@ -101,7 +104,7 @@
     display:inline-flex;align-items:center;gap:8px;
     font-size:12px;font-weight:600;color:var(--accent);
     padding:6px 12px;border-radius:999px;
-    background:#fff;border:1px solid var(--border);
+    background:var(--bg);border:1px solid var(--border);
     box-shadow:var(--shadow-sm);
     margin-bottom:24px;
   }
@@ -110,6 +113,9 @@
     font-size:clamp(2.25rem,5vw,3.5rem);
     font-weight:800;letter-spacing:-0.025em;line-height:1.08;
     margin:0 0 20px;color:var(--ink);
+  }
+  h1.hero-title .accent{
+    color:var(--accent);font-style:italic;font-weight:700;
   }
   .hero-sub{
     font-size:18px;color:var(--muted);max-width:600px;margin:0 auto 36px;
@@ -120,7 +126,7 @@
   .hero-stats{
     display:grid;grid-template-columns:repeat(3,1fr);gap:0;
     max-width:640px;margin:0 auto;
-    background:#fff;border:1px solid var(--border);border-radius:var(--radius-lg);
+    background:var(--bg);border:1px solid var(--border);border-radius:var(--radius-lg);
     box-shadow:var(--shadow-sm);overflow:hidden;
   }
   .hero-stat{padding:18px 20px;text-align:center;border-right:1px solid var(--border)}
@@ -142,11 +148,11 @@
   .chip{
     font-size:13px;font-weight:500;color:var(--ink-2);
     padding:7px 14px;border-radius:999px;
-    background:#fff;border:1px solid var(--border);
+    background:var(--bg);border:1px solid var(--border);
     cursor:pointer;transition:all .15s;
   }
   .chip:hover{border-color:var(--ink-2);color:var(--ink)}
-  .chip.active{background:var(--ink);color:#fff;border-color:var(--ink)}
+  .chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
   .chip .count{
     margin-left:6px;font-weight:600;font-size:11px;
     background:var(--bg-muted);color:var(--muted);
@@ -161,7 +167,7 @@
   }
 
   .card{
-    background:#fff;border:1px solid var(--border);
+    background:var(--bg);border:1px solid var(--border);
     border-radius:var(--radius-lg);
     padding:24px;
     display:flex;flex-direction:column;gap:16px;
@@ -187,13 +193,13 @@
 
   .tag{
     display:inline-flex;align-items:center;gap:4px;
-    font-size:11px;font-weight:600;letter-spacing:0.02em;
+    font-size:11px;font-weight:600;letter-spacing:0.04em;text-transform:uppercase;
     padding:4px 8px;border-radius:6px;
     background:var(--bg-muted);color:var(--ink-2);
   }
   .tag.featured{background:var(--accent-soft);color:var(--accent)}
-  .tag.new{background:#dcfce7;color:#15803d}
-  .tag.preview{background:#fef3c7;color:#a16207}
+  .tag.new{background:var(--sage-soft);color:var(--sage)}
+  .tag.preview{background:#fbecd2;color:#8a5a14}
 
   .card-title{
     font-size:18px;font-weight:700;color:var(--ink);
@@ -214,8 +220,8 @@
   .author{display:flex;align-items:center;gap:8px}
   .author-avatar{
     width:24px;height:24px;border-radius:50%;
-    background:linear-gradient(135deg,var(--accent),var(--accent-2));
-    display:grid;place-items:center;color:#fff;font-size:11px;font-weight:600;
+    background:linear-gradient(135deg,var(--ink),var(--accent));
+    display:grid;place-items:center;color:var(--bg);font-size:11px;font-weight:600;
     flex-shrink:0;
   }
   .author-name{color:var(--ink-2);font-weight:500}
@@ -225,33 +231,48 @@
   .card-actions .btn{flex:1}
 
   /* per-card icon colors */
-  .icon-validation{background:#eff6ff}
-  .icon-powerclaw{background:#fdf4ff}
-  .icon-receipts{background:#ecfdf5}
-  .icon-meeting{background:#fefce8}
-  .icon-debt{background:#fff7ed}
-  .icon-threat{background:#f5f3ff}
-  .icon-talent{background:#fdf2f8}
+  .icon-validation{background:#e6ecdf}
+  .icon-powerclaw{background:#f4dccb}
+  .icon-receipts{background:#dde6d4}
+  .icon-meeting{background:#f6e8c8}
+  .icon-debt{background:#f7d9c4}
+  .icon-threat{background:#dce4dc}
+  .icon-talent{background:#f0d9d2}
 
   /* ════════ CTA STRIP ════════ */
   .cta{
     margin-top:48px;
-    background:var(--ink);color:#fff;
+    background:var(--ink);color:var(--bg);
     border-radius:var(--radius-lg);
     padding:40px 32px;
     display:flex;align-items:center;justify-content:space-between;
     gap:32px;flex-wrap:wrap;
+    position:relative;overflow:hidden;
   }
+  .cta::before{
+    content:'';position:absolute;
+    width:300px;height:300px;border-radius:50%;
+    background:radial-gradient(circle,var(--accent) 0%,transparent 70%);
+    opacity:.25;top:-100px;right:-80px;pointer-events:none;
+  }
+  .cta::after{
+    content:'';position:absolute;
+    width:240px;height:240px;border-radius:50%;
+    background:radial-gradient(circle,var(--sage) 0%,transparent 70%);
+    opacity:.18;bottom:-100px;left:-60px;pointer-events:none;
+  }
+  .cta-text{position:relative;z-index:1}
   .cta-text h3{
     font-size:22px;font-weight:700;margin:0 0 6px;letter-spacing:-0.01em;
   }
   .cta-text p{
-    font-size:14px;color:#cbd5e1;margin:0;max-width:520px;
+    font-size:14px;color:#c4d4ce;margin:0;max-width:520px;
   }
-  .cta .btn-primary{background:#fff;color:var(--ink);border-color:#fff}
-  .cta .btn-primary:hover{background:#f1f5f9}
-  .cta .btn-secondary{background:transparent;color:#fff;border-color:#475569}
-  .cta .btn-secondary:hover{background:#1e293b;border-color:#64748b}
+  .cta > div:last-child{position:relative;z-index:1}
+  .cta .btn-primary{background:var(--accent);color:var(--bg);border-color:var(--accent)}
+  .cta .btn-primary:hover{background:var(--accent-2);border-color:var(--accent-2)}
+  .cta .btn-secondary{background:transparent;color:var(--bg);border-color:#3a5650}
+  .cta .btn-secondary:hover{background:#1f3933;border-color:#5f7872}
 
   /* ════════ FOOTER ════════ */
   footer{
@@ -314,7 +335,7 @@
   <section class="hero">
     <div class="container hero-inner">
       <div class="eyebrow"><span class="dot"></span> Curated by Pratik Bhusal · M365 FastTrack</div>
-      <h1 class="hero-title">Pre-built Copilot agents, ready to deploy.</h1>
+      <h1 class="hero-title">Pre-built Copilot agents, <span class="accent">ready to deploy.</span></h1>
       <p class="hero-sub">
         A working library of reusable AI agents for Microsoft 365 Copilot and Copilot Studio. Browse the catalog, grab the package, follow the setup guide, and ship in minutes.
       </p>
@@ -403,7 +424,7 @@
         </div>
         <div class="card-meta">
           <div class="author">
-            <div class="author-avatar" style="background:linear-gradient(135deg,#ec4899,#f59e0b)">AL</div>
+            <div class="author-avatar" style="background:linear-gradient(135deg,#c1502e,#e07a3c)">AL</div>
             <span class="author-name">Alejandro Lopez</span>
           </div>
           <span class="dot-sep">·</span>
@@ -430,7 +451,7 @@
         </div>
         <div class="card-meta">
           <div class="author">
-            <div class="author-avatar" style="background:linear-gradient(135deg,#10b981,#0ea5e9)">AH</div>
+            <div class="author-avatar" style="background:linear-gradient(135deg,#5f7a5c,#3a7a8e)">AH</div>
             <span class="author-name">Alex Hurtado</span>
           </div>
           <span class="dot-sep">·</span>
@@ -457,7 +478,7 @@
         </div>
         <div class="card-meta">
           <div class="author">
-            <div class="author-avatar" style="background:linear-gradient(135deg,#f59e0b,#ef4444)">GW</div>
+            <div class="author-avatar" style="background:linear-gradient(135deg,#c98c2a,#c1502e)">GW</div>
             <span class="author-name">Georges Wakim</span>
           </div>
           <span class="dot-sep">·</span>
@@ -484,7 +505,7 @@
         </div>
         <div class="card-meta">
           <div class="author">
-            <div class="author-avatar" style="background:linear-gradient(135deg,#f97316,#dc2626)">GN</div>
+            <div class="author-avatar" style="background:linear-gradient(135deg,#e07a3c,#a83246)">GN</div>
             <span class="author-name">Georgi Nunev</span>
           </div>
           <span class="dot-sep">·</span>
@@ -511,7 +532,7 @@
         </div>
         <div class="card-meta">
           <div class="author">
-            <div class="author-avatar" style="background:linear-gradient(135deg,#7c3aed,#3b82f6)">LO</div>
+            <div class="author-avatar" style="background:linear-gradient(135deg,#16302b,#3a7a8e)">LO</div>
             <span class="author-name">Lanre Olarotimi</span>
           </div>
           <span class="dot-sep">·</span>
@@ -538,7 +559,7 @@
         </div>
         <div class="card-meta">
           <div class="author">
-            <div class="author-avatar" style="background:linear-gradient(135deg,#ec4899,#8b5cf6)">MT</div>
+            <div class="author-avatar" style="background:linear-gradient(135deg,#a83246,#5f7a5c)">MT</div>
             <span class="author-name">Miguel Torres</span>
           </div>
           <span class="dot-sep">·</span>
