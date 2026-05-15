@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Pratik's Agent Gallery</title>
+<meta name="description" content="Pre-built, deploy-ready AI agents for Microsoft 365 — curated by Pratik Bhusal." />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<style>
+  :root {
+    --bg: #f5f7fb;
+    --card: #ffffff;
+    --ink: #1f2328;
+    --muted: #57606a;
+    --accent: #0078d4;
+    --accent-dark: #005a9e;
+    --border: #d0d7de;
+    --shadow: 0 1px 2px rgba(31,35,40,.06), 0 8px 24px rgba(140,149,159,.12);
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .hero {
+    text-align: center;
+    padding: 72px 24px 40px;
+    background: linear-gradient(180deg, #ffffff 0%, var(--bg) 100%);
+    border-bottom: 1px solid var(--border);
+  }
+  .hero h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin: 0 0 12px;
+    font-weight: 700;
+    letter-spacing: -.02em;
+  }
+  .hero p.lede {
+    font-size: 1.15rem;
+    color: var(--muted);
+    max-width: 680px;
+    margin: 0 auto 18px;
+  }
+  .hero .meta {
+    color: var(--muted);
+    font-size: .95rem;
+  }
+  .hero .pills {
+    margin-top: 22px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    font-size: .9rem;
+  }
+  .pill {
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 14px;
+    color: var(--muted);
+  }
+  main {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 48px 24px 80px;
+  }
+  h2.section {
+    font-size: 1.5rem;
+    margin: 0 0 6px;
+  }
+  .section-sub {
+    color: var(--muted);
+    margin: 0 0 28px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 22px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 1px 2px rgba(31,35,40,.06), 0 16px 32px rgba(140,149,159,.18);
+  }
+  .card .icon {
+    width: 64px;
+    height: 64px;
+    margin-bottom: 16px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #e8f2ff 0%, #f3e8ff 100%);
+  }
+  .card .icon img { width: 48px; height: 48px; }
+  .card h3 {
+    margin: 0 0 8px;
+    font-size: 1.2rem;
+  }
+  .card .tagline {
+    color: var(--muted);
+    margin: 0 0 16px;
+    flex-grow: 1;
+  }
+  .card .owner {
+    font-size: .85rem;
+    color: var(--muted);
+    margin-bottom: 16px;
+  }
+  .card .owner strong { color: var(--ink); font-weight: 600; }
+  .card .actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: .9rem;
+    font-weight: 500;
+    border: 1px solid var(--border);
+    background: #fff;
+    color: var(--ink);
+    transition: background .15s ease, border-color .15s ease;
+  }
+  .btn:hover { background: #f6f8fa; border-color: #afb8c1; }
+  .btn.primary {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .btn.primary:hover { background: var(--accent-dark); border-color: var(--accent-dark); }
+  footer {
+    text-align: center;
+    padding: 32px 24px 48px;
+    color: var(--muted);
+    font-size: .9rem;
+    border-top: 1px solid var(--border);
+    background: #fff;
+  }
+  footer a { color: var(--accent); text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+  <section class="hero">
+    <h1>Pratik's Agent Gallery</h1>
+    <p class="lede">Pre-built, deploy-ready AI agents for Microsoft 365 Copilot &amp; Copilot Studio.</p>
+    <p class="meta">Curated by <strong>Pratik Bhusal</strong> · M365 Copilot Technical Center of Excellence</p>
+    <div class="pills">
+      <span class="pill">📦 Ready to deploy</span>
+      <span class="pill">🚀 Copilot Studio</span>
+      <span class="pill">📖 Setup guides included</span>
+    </div>
+  </section>
+
+  <main>
+    <h2 class="section">🤖 Available Agents</h2>
+    <p class="section-sub">Two showcase agents from the M365 Copilot CoE Agent Repository.</p>
+
+    <div class="grid">
+      <!-- Document Validation Agent -->
+      <article class="card">
+        <div class="icon"><img src="assets/document-validation.svg" alt="Document Validation Agent icon" /></div>
+        <h3>Document Validation Agent</h3>
+        <p class="tagline">Validates submitted documents against a defined schema and policy ruleset — flagging missing fields, format issues, and compliance gaps so reviewers can focus on the exceptions, not the paperwork.</p>
+        <p class="owner">Owner: <strong>Pratik Bhusal</strong> · Copilot Studio</p>
+        <div class="actions">
+          <a class="btn primary" href="https://microsofteur.sharepoint.com/teams/M365Copilot-TechnicalCenterofExcellence/Agent%20Repository/Forms/AllItems.aspx?id=%2Fteams%2FM365Copilot%2DTechnicalCenterofExcellence%2FAgent%20Repository%2FPratik%5FDocument%20Validation%20Agent%5F02%5F19%5F2026" target="_blank" rel="noopener">📦 Open Repo Folder</a>
+          <a class="btn" href="https://microsofteur.sharepoint.com/:p:/r/teams/M365Copilot-TechnicalCenterofExcellence/Agent%20Repository/Pratik_Document%20Validation%20Agent_02_19_2026/Document_Validation_Agent.pptx" target="_blank" rel="noopener">📊 Overview Deck</a>
+        </div>
+      </article>
+
+      <!-- PowerClaw -->
+      <article class="card">
+        <div class="icon"><img src="assets/powerclaw.svg" alt="PowerClaw agent icon" /></div>
+        <h3>PowerClaw</h3>
+        <p class="tagline">A Power Platform-powered companion agent that automates everyday Copilot workflows — turning chat instructions into Power Automate flows, approvals, and structured actions across the M365 stack.</p>
+        <p class="owner">Owner: <strong>Alejandro Lopez</strong> · Copilot Studio</p>
+        <div class="actions">
+          <a class="btn primary" href="https://microsofteur.sharepoint.com/teams/M365Copilot-TechnicalCenterofExcellence/Agent%20Repository/Forms/AllItems.aspx?id=%2Fteams%2FM365Copilot%2DTechnicalCenterofExcellence%2FAgent%20Repository%2FAlejandro%5FPowerClaw%5F03%5F20%5F2026" target="_blank" rel="noopener">📦 Open Repo Folder</a>
+          <a class="btn" href="https://microsofteur.sharepoint.com/:p:/r/teams/M365Copilot-TechnicalCenterofExcellence/Agent%20Repository/Alejandro_PowerClaw_03_20_2026/PowerClaw-Overview.pptx" target="_blank" rel="noopener">📊 Overview Deck</a>
+        </div>
+      </article>
+    </div>
+  </main>
+
+  <footer>
+    <p>Built with ❤️ by <a href="https://github.com/pratikbhusal18" target="_blank" rel="noopener">@pratikbhusal18</a> · Inspired by the <a href="https://microsoft.github.io/m365-agent-templates/" target="_blank" rel="noopener">M365 Agent Templates</a> gallery</p>
+  </footer>
+</body>
+</html>
